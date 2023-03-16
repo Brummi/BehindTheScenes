@@ -1,0 +1,8 @@
+type: "KITTI_Raw"
+data_path: "data/KITTI-Raw"
+pose_path: "datasets/kitti_raw/out"
+split_path: "datasets/kitti_raw/splits/tulsiani"
+image_size: [ 128, 384 ]
+data_stereo: true
+data_fc: 1
+return_depth: true

@@ -1,0 +1,7 @@
+type: "KITTI_Raw"
+data_path: "data/KITTI-Raw"
+pose_path: "datasets/kitti_raw/orb-slam_poses"
+split_path: "datasets/kitti_raw/splits/eigen_zhou"
+image_size: [ 192, 640 ]
+data_stereo: true
+data_fc: 2

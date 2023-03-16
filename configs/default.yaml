@@ -1,0 +1,34 @@
+name: "Default"
+model: "default"
+seed: 0
+output_path: "out/default"
+
+batch_size: 16
+num_workers: 4
+
+eval_use_iters: true
+vis_use_iters: true
+validate_every: 2000
+visualize_every: 500
+
+log_every_iters: 1
+log_tb_train_every_iters: -1
+log_tb_val_every_iters: -1
+log_tb_vis_every_iters: 1
+
+checkpoint_every: 500
+resume_from: null
+
+loss_during_validation: false
+num_epochs: 150
+stop_iteration: null
+
+learning_rate: 1e-4
+warmup_steps: 10000
+decay_rate: 0.5
+decay_steps: 100000
+num_steps: 100000
+
+backend: null
+nproc_per_node: null
+with_amp: false

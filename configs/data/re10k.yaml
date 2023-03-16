@@ -1,0 +1,6 @@
+type: "RealEstate10k"
+data_path: "/usr/wiss/wimbauer/storage/group/dataset_mirrors/01_incoming/realestate10k"
+split_path: "/usr/wiss/wimbauer/storage/user/unsup-objects/unsup-objects/datasets/realestate10k/splits/mine"
+image_size: [ 256, 384 ]
+data_fc: 3
+dilation: 5

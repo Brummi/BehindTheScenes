@@ -1,0 +1,88 @@
+defaults:
+    - default
+    - data: re10k
+    - _self_
+
+name: "re10k"
+model: "bts"
+output_path: "out/re10k"
+mode: "nvs"
+
+num_epochs: 10
+batch_size: 24
+num_workers: 8
+
+save_best:
+    metric: ssim
+    sign: 1
+
+data:
+    data_fc: 3
+    dilation: random
+    color_aug: true
+
+model_conf:
+    arch: "BTSNet"
+    use_code: true
+
+    code:
+        num_freqs: 6
+        freq_factor: 1.5
+        include_input: true
+
+    encoder:
+        type: "monodepth2"
+        freeze: false
+        pretrained: true
+        resnet_layers: 50
+        num_ch_dec: [32,32,64,128,256]
+        d_out: 32
+
+    mlp_coarse:
+        type : "resnet"
+        n_blocks : 1
+        d_hidden : 32
+
+    mlp_fine:
+        type : "empty"
+        n_blocks : 1
+        d_hidden : 128
+
+    inv_z: true
+    learn_empty: false
+    code_mode: distance
+
+    n_frames_encoder: 1
+    n_frames_render: 2
+
+    frame_sample_mode: default
+
+    z_near: 1
+    z_far: 100
+    sample_mode: patch
+    patch_size: 8
+    ray_batch_size: 1024
+
+    flip_augmentation: true
+
+loss:
+    criterion: "l1+ssim"
+    lambda_edge_aware_smoothness: 0.001
+    invalid_policy: weight_guided
+
+scheduler:
+    type: step
+    step_size: 100000
+    gamma: 0.1
+
+learning_rate: 1e-5
+
+renderer:
+    n_coarse : 48
+    n_fine : 0
+    n_fine_depth : 0
+    depth_std : 1.0
+    sched : []
+    white_bkgd : false
+    lindisp: true
+    hard_alpha_cap: false
