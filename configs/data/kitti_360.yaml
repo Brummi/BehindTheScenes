@@ -7,4 +7,4 @@ data_stereo: true
 data_fc: 2
 fisheye_rotation: -15
 fisheye_offset: 10
-is_preprocessed: true
+is_preprocessed: false
