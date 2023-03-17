@@ -4,8 +4,15 @@ import numpy as np
 
 c_t = np.array(
     [[ 1.,  0.,  0.,  0.],
-     [ 0.,  0.,  1.,  0.],
+     [ 0.,  0., -1.,  0.],
+     [ 0.,  1.,  0.,  0.],
+     [ 0.,  0.,  0.,  1.]]
+)
+
+z_flip = np.array(
+    [[ 1.,  0.,  0.,  0.],
      [ 0., -1.,  0.,  0.],
+     [ 0.,  0., -1.,  0.],
      [ 0.,  0.,  0.,  1.]]
 )
 
@@ -25,20 +32,21 @@ def main():
     for i in range(frame_start, frame_end+1):
         scn.frame_set(i)
 
-        world_mat = np.array(cam.matrix_world)[:10]
-        world_mat_t = c_t @ world_mat
+        world_mat = np.array(cam.matrix_world)
+        world_mat_t = c_t @ world_mat @ z_flip
 
         print(f"Frame {i}:")
         print(f"Original world mat:")
         print(world_mat)
-        print(f"Transformerd wordl mat:")
+        print(f"Transformerd world mat:")
         print(world_mat_t)
 
         world_mats.append(world_mat_t)
 
     world_mats = np.array(world_mats)
-    np.save("camera_trj.npy", world_mats)
+    np.save("flythrough.npy", world_mats)
 
 
 if __name__ == "__main__":
     main()
+
