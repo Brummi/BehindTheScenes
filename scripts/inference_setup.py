@@ -13,11 +13,10 @@ from torch import nn
 import numpy as np
 import torch
 
-from datasets.realestate10k.realestate10k_dataset import RealEstate10kDataset
-
 os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.append(os.path.abspath(os.getcwd()))
 
+from datasets.realestate10k.realestate10k_dataset import RealEstate10kDataset
 from datasets.kitti_360.kitti_360_dataset import Kitti360Dataset
 from datasets.kitti_raw.kitti_raw_dataset import KittiRawDataset
 
