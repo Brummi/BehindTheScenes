@@ -6,7 +6,7 @@ This is the official implementation for the CVPR 2023 paper:
 
 > **Behind the Scenes: Density Fields for Single View Reconstruction**
 >
-> [Felix Wimbauer](https://www.vision.in.tum.de/members/wimbauer)<sup>1</sup>, [Nan Yang](https://nan-yang.me/)<sup>1</sup>, [Christian Rupprecht](https://chrirupp.github.io/)<sup>2</sup> and [Daniel Cremers](https://vision.in.tum.de/members/cremers)<sup>1</sup><br>
+> [Felix Wimbauer](https://fwmb.github.io)<sup>1</sup>, [Nan Yang](https://nan-yang.me/)<sup>1</sup>, [Christian Rupprecht](https://chrirupp.github.io/)<sup>2</sup> and [Daniel Cremers](https://vision.in.tum.de/members/cremers)<sup>1</sup><br>
 > <sup>1</sup>Technical University of Munich, <sup>2</sup>University of Oxford 
 > 
 > [**CVPR 2023** (arXiv)](https://arxiv.org/abs/2301.07668)
