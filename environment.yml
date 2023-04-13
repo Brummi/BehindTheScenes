@@ -2,22 +2,11 @@ name: bts
 channels:
   - pytorch
   - nvidia
-  - conda-forge
-  - defaults
 dependencies:
   - python
   - pytorch=1.13.1
+  - torchvision==0.14.1
   - pytorch-cuda=11.6
-  - torchvision
-  - matplotlib
-  - numpy
-  - opencv
-  - moviepy
-  - seaborn
-  - mediapy
-  - notebook
-  - scipy
-  - scikit-image
   - pip
   - pip:
       - tensorflow-datasets
@@ -29,3 +18,12 @@ dependencies:
       - dotmap
       - dotdict
       - pytorch-msssim
+      - plyfile
+      - tensorflow # for tensorboard (but it seems to be much faster with tensorflow)
+      - opencv-python
+      - matplotlib
+      - moviepy
+      - mediapy
+      - scipy
+      - scikit-image
+      - notebook
