@@ -524,7 +524,7 @@ class Kitti360Dataset(Dataset):
 
         # project to image
         depth = np.zeros(self.target_image_size)
-        depth[velo_pts_im[:, 1].astype(np.int), velo_pts_im[:, 0].astype(np.int)] = velo_pts_im[:, 2]
+        depth[velo_pts_im[:, 1].astype(np.int32), velo_pts_im[:, 0].astype(np.int32)] = velo_pts_im[:, 2]
 
         # find the duplicate points and choose the closest depth
         inds = velo_pts_im[:, 1] * (self.target_image_size[1] - 1) + velo_pts_im[:, 0] - 1
@@ -592,6 +592,7 @@ class Kitti360Dataset(Dataset):
         imgs = imgs_p_left + imgs_p_right + imgs_f_left + imgs_f_right if not is_right else imgs_p_right + imgs_p_left + imgs_f_right + imgs_f_left
         projs = projs_p_left + projs_p_right + projs_f_left + projs_f_right if not is_right else projs_p_right + projs_p_left + projs_f_right + projs_f_left
         poses = poses_p_left + poses_p_right + poses_f_left + poses_f_right if not is_right else poses_p_right + poses_p_left + poses_f_right + poses_f_left
+        ids = np.array(ids + ids + ids_fish + ids_fish, dtype=np.int32)
 
         if self.return_depth:
             depths = [self.load_depth(sequence, img_ids[0], is_right)]
@@ -617,6 +618,7 @@ class Kitti360Dataset(Dataset):
             "projs": projs,
             "poses": poses,
             "depths": depths,
+            "ts": ids,
             "3d_bboxes": bboxes_3d,
             "segs": segs,
             "t__get_item__": np.array([_proc_time]),

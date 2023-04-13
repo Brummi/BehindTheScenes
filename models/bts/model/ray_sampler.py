@@ -101,7 +101,7 @@ class RandomRaySampler(RaySampler):
 
         render_dict["coarse"] = coarse
         render_dict["fine"] = fine
-        render_dict["rgb_gt"] = rgb_gt.view(n, n_pts, self.channels)
+        render_dict["rgb_gt"] = rgb_gt.view(n, n_pts, channels)
 
         return render_dict
 
@@ -216,7 +216,7 @@ class PatchRaySampler(RaySampler):
 
         render_dict["coarse"] = coarse
         render_dict["fine"] = fine
-        render_dict["rgb_gt"] = rgb_gt.view(n, self._patch_count, self.patch_size_y, self.patch_size_x, self.channels)
+        render_dict["rgb_gt"] = rgb_gt.view(n, self._patch_count, self.patch_size_y, self.patch_size_x, channels)
 
         return render_dict
 
@@ -316,6 +316,6 @@ class ImageRaySampler(RaySampler):
 
         if "rgb_gt" in render_dict:
             rgb_gt = render_dict["rgb_gt"]
-            render_dict["rgb_gt"] = rgb_gt.view(n, v_in, self.height, self.width, self.channels)
+            render_dict["rgb_gt"] = rgb_gt.view(n, v_in, self.height, self.width, channels)
 
         return render_dict

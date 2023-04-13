@@ -123,7 +123,7 @@ class BTSNet(torch.nn.Module):
             image_latents_ms = [torch.flip(il, dims=(-1, )) for il in image_latents_ms]
 
         _, _, h_, w_ = image_latents_ms[0].shape
-        image_latents_ms = [F.upsample(image_latents, (h_, w_)).view(n, nv, c_l, h_, w_) for image_latents in image_latents_ms]
+        image_latents_ms = [F.interpolate(image_latents, (h_, w_)).view(n, nv, c_l, h_, w_) for image_latents in image_latents_ms]
 
         self.grid_f_features = image_latents_ms
         self.grid_f_Ks = Ks_encoder

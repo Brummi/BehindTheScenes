@@ -56,7 +56,7 @@ class PerceptualProcessor(nn.Module):
 
         for kk in range(self._layers):
             f = lpips.normalize_tensor(outs[kk])
-            f = F.upsample(f, (h, w))
+            f = F.interpolate(f, (h, w))
             feats.append(f)
 
         feats = torch.cat(feats, dim=1)
