@@ -116,17 +116,26 @@ def base_training(local_rank, config, get_dataflow, initialize, get_metrics, vis
         #  - Evaluation train/test metrics
 
         trainer_timer = IterationTimeHandler()
+        trainer_timer_data = DataloaderTimeHandler()
         trainer.add_event_handler(Events.ITERATION_STARTED, trainer_timer.start_iteration)
         trainer.add_event_handler(Events.ITERATION_COMPLETED, trainer_timer.end_iteration)
+        trainer.add_event_handler(Events.GET_BATCH_STARTED, trainer_timer_data.start_get_batch)
+        trainer.add_event_handler(Events.GET_BATCH_COMPLETED, trainer_timer_data.end_get_batch)
 
         evaluator_timer = IterationTimeHandler()
+        evaluator_timer_data = DataloaderTimeHandler()
         evaluator.add_event_handler(Events.ITERATION_STARTED, evaluator_timer.start_iteration)
         evaluator.add_event_handler(Events.ITERATION_COMPLETED, evaluator_timer.end_iteration)
+        evaluator.add_event_handler(Events.GET_BATCH_STARTED, evaluator_timer_data.start_get_batch)
+        evaluator.add_event_handler(Events.GET_BATCH_COMPLETED, evaluator_timer_data.end_get_batch)
 
         if visualizer:
             visualizer_timer = IterationTimeHandler()
+            visualizer_timer_data = DataloaderTimeHandler()
             visualizer.add_event_handler(Events.ITERATION_STARTED, visualizer_timer.start_iteration)
             visualizer.add_event_handler(Events.ITERATION_COMPLETED, visualizer_timer.end_iteration)
+            visualizer.add_event_handler(Events.GET_BATCH_STARTED, visualizer_timer_data.start_get_batch)
+            visualizer.add_event_handler(Events.GET_BATCH_COMPLETED, visualizer_timer_data.end_get_batch)
 
         gst = lambda engine, event_name: trainer.state.epoch
         gst_it_epoch = lambda engine, event_name: (trainer.state.epoch - 1) * engine.state.epoch_length + engine.state.iteration - 1
@@ -460,6 +469,26 @@ class IterationTimeHandler:
         else:
             engine.state.times["secs_per_iter"] = t_diff
             engine.state.times["iters_per_sec"] = iters_per_sec
+
+
+class DataloaderTimeHandler:
+    def __init__(self):
+        self._start_time = None
+
+    def start_get_batch(self, engine):
+        self._start_time = time.time()
+
+    def end_get_batch(self, engine):
+        if self._start_time is None:
+            t_diff = 0
+            iters_per_sec = 0
+        else:
+            t_diff = max(time.time() - self._start_time, 1e-6)
+            iters_per_sec = 1 / t_diff
+        if not hasattr(engine.state, "times"):
+            engine.state.times = {}
+        else:
+            engine.state.times["get_batch_secs"] = t_diff
 
 
 class VisualizationHandler(BaseHandler):
