@@ -1,6 +1,6 @@
 # Behind the Scenes: Density Fields for Single View Reconstruction
 
-[**Paper**](https://arxiv.org/abs/2301.07668) |  [**Video** (Soon)](#) | [**Project Page**](https://fwmb.github.io/bts)
+[**Paper**](https://arxiv.org/abs/2301.07668) |  [**Video**](https://youtu.be/0VGKPmomrR8) | [**Project Page**](https://fwmb.github.io/bts)
 
 This is the official implementation for the CVPR 2023 paper:
 
