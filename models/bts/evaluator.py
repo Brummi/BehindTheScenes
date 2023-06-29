@@ -175,7 +175,7 @@ class BTSWrapper(nn.Module):
         imgs_gt_np = imgs_gt.detach().squeeze().permute(1, 2, 0).cpu().numpy()
         imgs_pred_np = imgs_pred.detach().squeeze().permute(1, 2, 0).cpu().numpy()
 
-        ssim_score = skimage.metrics.structural_similarity(imgs_pred_np, imgs_gt_np, multichannel=True, data_range=1)
+        ssim_score = skimage.metrics.structural_similarity(imgs_pred_np, imgs_gt_np, multichannel=True, data_range=1, channel_axis=2)
         psnr_score = skimage.metrics.peak_signal_noise_ratio(imgs_pred_np, imgs_gt_np, data_range=1)
         lpips_score = self.lpips_vgg(imgs_pred, imgs_gt, normalize=False).mean()
 
@@ -199,7 +199,7 @@ def get_dataflow(config):
 
 
 def get_metrics(config, device):
-    names = ["abs_rel", "sq_rel", "rmse", "rmse_log", "a1", "a2", "a3", "ssim", "psnr", "lpips"]
+    names = ["abs_rel", "sq_rel", "rmse", "rmse_log", "a1", "a2", "a3"]
     metrics = {name: MeanMetric((lambda n: lambda x: x["output"][n])(name), device) for name in names}
     return metrics
 
