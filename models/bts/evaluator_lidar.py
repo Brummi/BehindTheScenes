@@ -322,21 +322,21 @@ class BTSWrapper(nn.Module):
 
         not_occupied_not_visible_ratio = ((~is_occupied) & (~is_visible)).float().mean().item()
 
-        total_no_nv = ((~is_occupied) & (~is_visible)).float().sum().item()
+        total_ie = ((~is_occupied) & (~is_visible)).float().sum().item()
 
-        no_nv_acc = (is_occupied_pred == is_occupied)[(~is_visible)].float().mean().item()
-        no_nv_prec = (~is_occupied)[(~is_occupied_pred) & (~is_visible)].float().mean()
-        no_nv_rec = (~is_occupied_pred)[(~is_occupied) & (~is_visible)].float().mean()
+        ie_acc = (is_occupied_pred == is_occupied)[(~is_visible)].float().mean().item()
+        ie_prec = (~is_occupied)[(~is_occupied_pred) & (~is_visible)].float().mean()
+        ie_rec = (~is_occupied_pred)[(~is_occupied) & (~is_visible)].float().mean()
         total_no_nop_nv = ((~is_occupied) & (~is_occupied_pred))[(~is_visible) & (~is_occupied)].float().sum()
 
         data["o_acc"] = is_occupied_acc
         data["o_rec"] = is_occupied_rec
         data["o_prec"] = is_occupied_prec
-        data["no_nv_acc"] = no_nv_acc
-        data["no_nv_rec"] = no_nv_rec
-        data["no_nv_prec"] = no_nv_prec
-        data["no_nv_r"] = not_occupied_not_visible_ratio
-        data["t_no_nv"] = total_no_nv
+        data["ie_acc"] = ie_acc
+        data["ie_rec"] = ie_rec
+        data["ie_prec"] = ie_prec
+        data["ie_r"] = not_occupied_not_visible_ratio
+        data["t_ie"] = total_ie
         data["t_no_nop_nv"] = total_no_nop_nv
 
         data["z_near"] = torch.tensor(self.z_near, device=images.device)
@@ -359,7 +359,7 @@ def get_dataflow(config):
 
 
 def get_metrics(config, device):
-    names = ["o_acc", "o_prec", "o_rec", "no_nv_acc", "no_nv_prec", "no_nv_rec", "t_no_nv", "t_no_nop_nv"]
+    names = ["o_acc", "o_prec", "o_rec", "ie_acc", "ie_prec", "ie_rec", "t_ie", "t_no_nop_nv"]
     metrics = {name: MeanMetric((lambda n: lambda x: x["output"][n])(name), device) for name in names}
     return metrics
 

@@ -166,7 +166,15 @@ python train.py -cn exp_re10k
 
 # 📊 Evaluation
 
-_Coming soon._
+We further provide configurations to reproduce the evaluation results from the paper for occupancy and depth estimation.
+
+```bash
+# KITTI-360 Lidar Occupancy
+python eval.py -cn eval_lidar_occ
+
+# KITTI Raw Depth
+python eval.py -cn eval_depth
+```
 
 # 📽 Rendering Images & Videos
 

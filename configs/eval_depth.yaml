@@ -1,0 +1,65 @@
+defaults:
+    - default
+    - data: kitti_raw
+    - _self_
+
+name: "eval_depth"
+model: "bts"
+
+checkpoint: "out/kitti_raw/pretrained"
+
+
+log_every: 10
+batch_size: 1
+
+data:
+    image_size: [192, 640]
+    data_fc: 1
+
+model_conf:
+    arch: "BTSNet"
+    use_code: true
+    use_scales: true
+
+    code:
+        num_freqs: 6
+        freq_factor: 1.5
+        include_input: true
+
+    encoder:
+        type: "monodepth2"
+        freeze: false
+        pretrained: true
+        resnet_layers: 50
+        num_ch_dec: [32,32,64,128,256]
+        d_out: 64
+
+    mlp_coarse:
+        type : "resnet"
+        n_blocks : 0
+        d_hidden : 64
+
+    mlp_fine:
+        type : "empty"
+        n_blocks : 1
+        d_hidden : 128
+
+    z_near: 3
+    z_far: 80
+    ray_batch_size: 256
+    inv_z: true
+
+    code_mode: z
+
+    n_frames_encoder: 1
+    n_frames_render: 1
+
+renderer:
+    n_coarse : 64
+    n_fine : 0
+    n_fine_depth : 0
+    depth_std : 1.00
+    sched : []
+    white_bkgd : false
+    lindisp: true
+    hard_alpha_cap: true
