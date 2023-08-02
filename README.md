@@ -21,7 +21,7 @@ If you find our work useful, please consider citing our paper:
 }
 ```
 
-https://user-images.githubusercontent.com/16351108/225641019-3d864d40-bf21-41bf-82cf-896dacba3fb9.mp4
+https://github.com/Brummi/BehindTheScenes/assets/16351108/bedef923-b8b9-4849-b641-e6732d4b273c
 
 # 📋 Abstract 
 
